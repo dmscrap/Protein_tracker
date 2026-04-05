@@ -2,10 +2,10 @@ import streamlit as st
 import datetime
 
 # App Configuration
-st.set_page_config(page_title="RedHead Hill Protein Tracker", layout="centered")
+st.set_page_config(page_title="Protein Tracker", layout="centered")
 
 # Set your target goal here
-PROTEIN_GOAL = 140  # Adjust as needed for your specific keto/carnivore macros
+PROTEIN_GOAL = 140 
 
 # Initialize storage
 if 'total_protein' not in st.session_state:
@@ -15,17 +15,16 @@ if 'logs' not in st.session_state:
 
 # UI Header
 st.title("🥩 Protein Tracker")
-st.caption("RedHead Hill Edition")
 
-# Progress Bar
+# Progress Bar and Stats
 progress = st.session_state.total_protein / PROTEIN_GOAL
 st.progress(min(progress, 1.0))
 col_stats1, col_stats2 = st.columns(2)
 col_stats1.metric("Current Total", f"{st.session_state.total_protein}g")
 col_stats2.metric("Remaining", f"{max(0, PROTEIN_GOAL - st.session_state.total_protein)}g")
 
-# Quick Add Section - Carnivore Staples
-st.subheader("Quick Add Staples")
+# Quick Add Section
+st.subheader("Quick Add")
 c1, c2 = st.columns(2)
 
 with c1:
@@ -66,11 +65,11 @@ st.subheader("Today's Meals")
 for item in reversed(st.session_state.logs):
     st.info(item)
 
-# Reset & Group Reminder
+# Reset & Farewell
 st.divider()
 if st.button("Reset for Tomorrow"):
     st.session_state.total_protein = 0
     st.session_state.logs = []
     st.rerun()
 
-st.write("📖 *Don't forget to send today's scripture to the group!*")
+st.write("☀️ **Have a great day!**")
